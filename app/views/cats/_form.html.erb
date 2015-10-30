@@ -1,0 +1,47 @@
+<%= form_for(@cat) do |f| %>
+  <% if @cat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cat.errors.count, "error") %> prohibited this cat from being saved:</h2>
+
+      <ul>
+        <% @cat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <!-- 追加箇所 開始 -->
+  <div class="field">
+    <% if @cat.image? %>
+      <div class="thumbnail">
+        <%= image_tag @cat.image.url %>
+      </div>
+    <% end %><br>
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+    <!-- バリデーションエラーの戻り -->
+    <%= f.hidden_field :image_cache %>
+  </div>
+  <div class="field">
+    <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+    <% if @cat.persisted? && @cat.image? %>
+      <label>
+        <%= f.check_box :remove_image %>
+        画像を削除
+      </label>
+    <% end %>
+  </div>
+  <!-- 追加箇所 終了 -->
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

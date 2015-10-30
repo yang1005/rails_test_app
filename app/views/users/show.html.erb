@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @user.login %>
+</p>
+
+<p>
+  <strong>住所</strong>
+</p>
+<% @user.addresses.each do |address| %>
+  <p>
+    <strong>郵便番号</strong>
+    <%= address.zipcode %>
+  </p>
+
+  <p>
+    <strong>都道府県</strong>
+    <%= address.city %>
+  </p>
+
+  <p>
+    <strong>市町村番</strong>
+    <%= address.street %>
+  </p>
+
+  <p>
+    <strong>電話番号</strong>
+    <%= address.tel %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
